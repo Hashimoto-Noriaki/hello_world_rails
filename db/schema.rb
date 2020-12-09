@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(version: 2020_11_26_103121) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "account"
     t.string "name"
+    t.string "email"
+    t.string "account"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "email"
   end
 
   add_foreign_key "articles", "users"

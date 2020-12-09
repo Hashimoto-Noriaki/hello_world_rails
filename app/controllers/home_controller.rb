@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
-    puts "yu"
+    # binding.pry
+  @message = "ポチ"
   end
 end

@@ -27,11 +27,10 @@ RSpec.describe User, type: :model do
   # end
 
   context "まだ同じ名前のaccount が存在しないとき" do
-    it "ユーザー作成に失敗" do
-    create(:user,account:"pochi")
-      # User.create!(name: "poo", account: "poo",email: "poo@example.com")
+    before {create_list(:user,account:"pochi")} 
+    fit "ユーザー作成に失敗" do
     user = build(:user,account: "pochi")
-    # user = User.new(name: "pochi", account: "poo",email: "pochi@example.com")
+    binding.pry
     expect(user).to be_invalid
     expect(user.errors.details[:account][0][:error]).to eq :taken
     
@@ -39,4 +38,6 @@ RSpec.describe User, type: :model do
   end
 end
 end
+
+
 

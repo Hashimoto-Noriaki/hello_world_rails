@@ -51,7 +51,7 @@ end
     let(:params) do
     {user:attributes_for(:user)}
   end
-   fit "ユーザーのレコードが作成できる" do
+   it "ユーザーのレコードが作成できる" do
     expect {subject}.to change {User.count}.by(1)
     res = JSON.parse(response.body)
     expect(res["name"]).to eq params[:user][:name]
@@ -67,10 +67,28 @@ end
 end
 end
 
+
+
 describe "PATCH(PUT) /users/:id" do
-  it "任意のユーザーのレコードを更新できる"
+  subject { patch(user_path(user_id),params: params)}
+  let(:params) do
+    {user: {name: Faker::Name.name,created_at: 1.day.ago}}
   end
-end
+  let(:user_id) {user.id}
+  let(:user) { create(:user)}
+  
+  fit "任意のユーザーのレコードを更新できる" do
+    expect {subject}.to change {user.reload.name}.from(user.name).to(params[:user][:name]) &
+                    not_change {user.reload.account} &
+                    not_change {user.reload.email} &
+                    not_change {user.reload.created_at}#変わらないこと
+  end
+  # end
+# end
+
+
+
+
 
 describe "DELETE /users/:id" do
   it "任意のユーザーのレコードを削除できる"
@@ -78,8 +96,8 @@ describe "DELETE /users/:id" do
 # end
 
 
-# end
-#  end
+end
+end
 # end
 
 

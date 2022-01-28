@@ -6,8 +6,7 @@ RSpec.describe "Users", type: :request do
     before {create_list(:user,3)}
     it "ユーザーの一覧が取得できる" do
     subject
-    
-  # binding.pry
+    # binding.pry
   res = JSON.parse(response.body)
   expect(res.length).to eq 3
   expect(res[0].keys).to eq ["account","name","email"]
@@ -77,7 +76,7 @@ describe "PATCH(PUT) /users/:id" do
   let(:user_id) {user.id}
   let(:user) { create(:user)}
   
-  fit "任意のユーザーのレコードを更新できる" do
+  it "任意のユーザーのレコードを更新できる" do
     expect {subject}.to change {user.reload.name}.from(user.name).to(params[:user][:name]) &
                     not_change {user.reload.account} &
                     not_change {user.reload.email} &
@@ -88,17 +87,21 @@ describe "PATCH(PUT) /users/:id" do
 
 
 
-
-
 describe "DELETE /users/:id" do
-  it "任意のユーザーのレコードを削除できる"
+  subject {delete(user_path(user_id))}
+  let(:user_id)  {user.id}
+  let!(:user) {create(:user)}
+
+  fit "任意のユーザーのレコードを削除できる" do
+  expect { subject }.to change {User.count}.by(-1)
   end
-# end
+  end
 
 
 end
 end
 # end
+
 
 
 

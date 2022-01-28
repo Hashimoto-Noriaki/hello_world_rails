@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only:  [:show, :update, :destroy]
-
+  
   def index
   @users = User.all
   end
@@ -10,14 +10,9 @@ class UsersController < ApplicationController
   end
 
   def create
-  #   @user = User.new(
-  #     name: params[:name],
-  #     account: params[:account],
-  #     email: params[:email],
-  #  )
-  #  binding.pry
+  #インスタンスをmodelから作成
   @user = User.new(user_params)
-
+  #インスタンスをDBに保存する
    @user.save!
    render :show
   end

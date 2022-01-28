@@ -21,8 +21,14 @@ module HelloWorldRails
       g.helper false
       g.test_framework false
       g.template_engine false
-      g.test_framework :rspec
-    end
+      g.test_framework :rspec,
+                        fixtures: true, 
+                        view_spec: false,
+                        routing_specs: false,
+                        helper_specs: false,
+                        controller_specs: false,
+                        request_specs: true
+end
 
 
     config.api_only = true
